@@ -16,8 +16,8 @@ import pandas as pd
 
 !ls
 
-# from google.colab import files
-# uploaded = files.upload()
+from google.colab import files
+uploaded = files.upload()
 
 """---
 
@@ -188,7 +188,7 @@ it's time to vectorization
 # V = CountVectorizer(min_df = 8)   
 
 from sklearn.feature_extraction.text import TfidfVectorizer
-V = TfidfVectorizer(min_df = 8)
+V = TfidfVectorizer(min_df = 3)
 
 X = V.fit_transform(all_reviews).toarray()
 
@@ -344,9 +344,9 @@ dump(model, 'emotion.joblib')
           
     TfidfVectorizer
     
-          accuracy_score    :  0.6158082762727002
-          f1_score          :  0.5503867710468437
-          precision_score   :  0.5880493523520716
+          accuracy_score    :  0.6172968145281333
+          f1_score          :  0.5536703949888738
+          precision_score   :  0.6039685467932462
 
 ---
 
@@ -360,14 +360,17 @@ it gives results upto :
             
           TfidfVectorizer
         
-              accuracy_score  : 0.6158082762727002
-              f1_score        : 0.5503867710468437
-              precision_score : 0.5880493523520716
+            accuracy_score    :  0.6172968145281333
+            f1_score          :  0.5536703949888738
+            precision_score   :  0.6039685467932462
 
 ---
 
 ### ***it's time to check our model:***
 """
+
+content = 'hurreeyyy.!!! i am feeling very happy after completing this project, I loved it'
+
 
 from joblib import dump, load
 import numpy as np
@@ -376,7 +379,7 @@ model = load('emotion.joblib')
 import pickle
 V =  pickle.load(open("tfidf1.pkl","rb"))
 
-features = V.transform(['hurreeyyy.!!! i am feeling very happy after completing this project, I loved it']).toarray()
+features = V.transform([content]).toarray()
 
 mood = model.predict(features)[0]
 
